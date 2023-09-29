@@ -22,6 +22,21 @@ def download_files_from_remote(remote_dir, local_dir, hostname, username, key_fi
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
+def upload_files(remote_dir, local_dir, hostname, username, key_filename):
+    ssh_client = paramiko.SSHClient()
+    ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh_client.connect(hostname, username=username, key_filename=key_filename)
+    try:
+        sftp = ssh_client.open_sftp()
+        for local_file in os.listdir(local_dir):
+            local_file_path = os.path.join(local_dir, local_file)
+            remote_file_path = os.path.join(remote_dir, local_file)
+            sftp.put(local_file_path, remote_file_path)
+            print(f"Uploaded: {local_file} to {remote_file_path}")
+        sftp.close()
+    finally:
+        ssh_client.close()
+
 
 # Example usage:
 if __name__ == "__main__":
@@ -31,3 +46,4 @@ if __name__ == "__main__":
     username = 'user'
     key_filename = 'path/server.pem'
     download_files_from_remote(remote_dir, local_dir, hostname, username, key_filename)
+    upload_files(remote_dir, local_dir, hostname, username, key_filename)
