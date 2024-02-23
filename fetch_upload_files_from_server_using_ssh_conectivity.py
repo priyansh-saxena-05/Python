@@ -42,7 +42,7 @@ def upload_files(remote_dir, local_dir, hostname, username, key_filename):
 if __name__ == "__main__":
     remote_dir = '/path/to/server/folder/'
     local_dir = '/local/folder/path/where/to/save'
-    hostname = '123.140.70.144' Ip address
+    hostname = '123.140.70.144' # Ip address
     username = 'user'
     key_filename = 'path/server.pem'
     download_files_from_remote(remote_dir, local_dir, hostname, username, key_filename)
