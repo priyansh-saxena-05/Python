@@ -37,6 +37,10 @@ def protected():
     payload = verify_jwt(token)
     if payload is None:
         return jsonify({'message': 'Invalid or expired token!'}), 403
+    current_time = datetime.datetime.utcnow()
+    exp_time = datetime.datetime.utcfromtimestamp(payload['exp'])
+    if current_time > exp_time:
+        return jsonify({'message': 'Expired token!'}), 403
 
     # If the token is valid, return a success message
     return jsonify({'message': 'Token is valid!', 'data': payload})
