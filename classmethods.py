@@ -22,3 +22,12 @@ print(dog1.species)
 print(dog2.species)        
 dog2.change_species("Species")
 print(dog2.species)
+
+
+# OUTPUT
+# Buddy
+# A Golden Retriever dog
+# Canis familiaris
+# New Species
+# New Species
+# Species
